@@ -4,3 +4,9 @@
   entry: ./scripts/ktlint.sh
   language: script
   files: \.kt(s)?$
+- id: detekt
+  name: detekt
+  description: Runs detekt
+  entry: ./scripts/detekt.sh
+  language: script
+  files: \.kt(s)?$
