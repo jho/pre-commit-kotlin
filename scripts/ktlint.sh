@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 
-args=""
-for arg in "$@"; do
-	if [[ ! $arg == "-F" ]] && [[ ! $arg == "--force" ]] ; then
-		args="$args $arg"
-	fi
-done
-
-ktlint $args || (ktlint -F $args; test 1 == 0)
+version=0.40.0
+dir=${PRE_COMMIT_HOME:-${XDG_CACHE_HOME:-~/.cache}}/pre-commit
+file=$dir/ktlint-$version.jar
+if ! command -v ktlint &> /dev/null; then
+    if [ ! -f "$file" ]; then
+        curl -sSL -o $file https://github.com/pinterest/ktlint/releases/download/${version}/ktlint 
+    fi
+    java -jar $file $@
+else
+    ktlint $@
+fi
