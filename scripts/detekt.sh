@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
+files=""
+args=""
+for arg in "$@"; do
+	if [[ $arg =~ \.kt(s)?$ ]]; then
+		files="$files $arg"
+	else
+        args="$args $arg"
+    fi
+done
+
 version=1.22.0-RC2
 pre_commit_dir=${PRE_COMMIT_HOME:-${XDG_CACHE_HOME:-~/.cache}}/pre-commit
 dir=${pre_commit_dir}/detekt-$version
@@ -13,7 +23,7 @@ if ! command -v detekt &> /dev/null; then
         mv detekt-cli-${version} $dir
         rm -rf detekt-cli-${version}
     fi
-    $exec $@
+    $exec $args --input $files 
 else
-    detekt $@
+    detekt $args --input $files 
 fi
