@@ -4,7 +4,11 @@ files=""
 args=""
 for arg in "$@"; do
 	if [[ $arg =~ \.kt(s)?$ ]]; then
-		files="$files $arg"
+        if [ -z "$files" ]; then 
+            files="$arg"
+        else
+		    files="$files,$arg"
+        fi
 	else
         args="$args $arg"
     fi
