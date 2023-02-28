@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-version=0.40.0
+version=0.48.2
 dir=${PRE_COMMIT_HOME:-${XDG_CACHE_HOME:-~/.cache}}/pre-commit
 file=$dir/ktlint-$version.jar
 if ! command -v ktlint &> /dev/null; then
